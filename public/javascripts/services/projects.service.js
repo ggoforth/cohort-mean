@@ -3,7 +3,7 @@
   'use strict';
 
   angular.module('app')
-    .service('Projects', function ($http, $timeout) {
+    .service('Projects', function ($http, $state) {
       var vm = this;
 
       /**
@@ -37,6 +37,23 @@
             });
 
             return vm.projects;
+          });
+      };
+
+      /**
+       * Update a project.
+       *
+       * @param project
+       * @returns {*}
+       */
+      vm.put = function put(project) {
+        var data = {title: project.title};
+
+        return $http.put('/projects/' + project._id, data)
+          .then(function (res) {
+            $state.go('projects.detail', {projectId: project._id});
+          }, function (err) {
+            //TODO: handle when we can't update a project.
           });
       };
     });
