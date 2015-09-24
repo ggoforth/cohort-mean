@@ -1,0 +1,25 @@
+<div data-ui-view>
+    <h1>Projects</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Project</th>
+            <th>User</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="project in projectsController.projects">
+            <td><a data-ui-sref="projects.detail({projectId: project._id})">{{project.title}}</a></td>
+            <td>{{project.user.first_name}} {{project.user.last_name}}</td>
+            <td>{{project.user.email}}</td>
+            <th>
+                <a data-ui-sref="projects.detail.edit({projectId: project._id})">
+                    <i class="fa fa-pencil"></i> Edit
+                </a>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>

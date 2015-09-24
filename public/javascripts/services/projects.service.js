@@ -14,6 +14,16 @@
       vm.projects = [];
 
       /**
+       * Find a project in our vm.projects.
+       *
+       * @param projectId
+       * @returns {*}
+       */
+      vm.find = function find(projectId) {
+        return _.find(vm.projects, {_id: projectId});
+      };
+
+      /**
        * Get out projects from the server.
        *
        * @returns {*}
@@ -25,17 +35,6 @@
             res.data.forEach(function (project) {
               vm.projects.push(project);
             });
-
-            $timeout(function () {
-              vm.projects.push({
-                title: 'FAKE PROJECTS',
-                user: {
-                  first_name: 'Steve',
-                  last_name: 'Miller',
-                  email: 'foo@bar.com'
-                }
-              });
-            }, 5000);
 
             return vm.projects;
           });

@@ -5,38 +5,26 @@
     <meta charset="UTF-8">
     <link rel="stylesheet"
           href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet"
+          href="bower_components/font-awesome/css/font-awesome.min.css"/>
     <title>Cohort Angular App</title>
 </head>
-<body data-ng-controller="BodyController as body">
+<body>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Cohort Angular App</h1>
-
-            <p>{{body.welcome}}</p>
-            <table class="table table-striped table-responsive">
-                <thead>
-                <tr>
-                    <th>Project Title</th>
-                    <th>User</th>
-                    <th>Email</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr data-ng-repeat="project in body.projects">
-                    <td>{{project.title}}</td>
-                    <td>{{project.user.first_name}} {{project.user.last_name}}</td>
-                    <td>{{project.user.email}}</td>
-                </tr>
-                </tbody>
-            </table>
+            <div data-ui-view></div>
         </div>
     </div>
 </div>
+<script src="bower_components/lodash/lodash.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="javascripts/app.module.js"></script>
 <script src="javascripts/body.controller.js"></script>
 <script src="javascripts/services/projects.service.js"></script>
+<script src="javascripts/projects/projects.controller.js"></script>
+<script src="javascripts/projects/project.controller.js"></script>
+<script src="javascripts/projects/project-edit.controller.js"></script>
 </body>
 </html>
