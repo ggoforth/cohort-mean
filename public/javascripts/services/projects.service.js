@@ -56,5 +56,28 @@
             //TODO: handle when we can't update a project.
           });
       };
+
+      /**
+       * Remove a project.
+       *
+       * @param projectId
+       */
+      vm.remove = function remove(projectId) {
+        _.remove(vm.projects, {_id: projectId});
+      };
+
+      /**
+       * Delete a project.
+       *
+       * @param projectId
+       * @returns {*}
+       */
+      vm.del = function del(projectId) {
+        return $http.delete('/projects/' + projectId)
+          .then(function (res) {
+            vm.remove(projectId);
+            $state.go('projects');
+          });
+      };
     });
 }());

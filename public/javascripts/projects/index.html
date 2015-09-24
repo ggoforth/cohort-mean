@@ -1,6 +1,6 @@
 <div data-ui-view>
     <h1>Projects</h1>
-    <table class="table table-striped">
+    <table data-ng-if="projectsController.projects.length" class="table table-striped">
         <thead>
         <tr>
             <th>Project</th>
@@ -14,12 +14,20 @@
             <td><a data-ui-sref="projects.detail({projectId: project._id})">{{project.title}}</a></td>
             <td>{{project.user.first_name}} {{project.user.last_name}}</td>
             <td>{{project.user.email}}</td>
-            <th>
+            <td>
                 <a data-ui-sref="projects.detail.edit({projectId: project._id})">
                     <i class="fa fa-pencil"></i> Edit
                 </a>
-            </th>
+
+                <a style="color: red; display: inline-block; margin-left: 20px; cursor: pointer;" data-ng-click="projectsController.remove(project._id)">
+                    <i class="fa fa-pencil"></i> Delete
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
+
+    <div data-ng-if="!projectsController.projects.length" class="alert alert-info">
+        Nuttin to see here.
+    </div>
 </div>
