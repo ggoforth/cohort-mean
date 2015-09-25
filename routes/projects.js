@@ -38,10 +38,10 @@ router.route('/:projectId')
     res.render('projects/detail', {title: 'Projects', project: req.project});
   })
   .delete(function (req, res) {
-    Project.findByIdAndRemove(req.params.projectId, function (err) {
+    req.project.remove(function (err) {
       if (err) return res.status(400).json(err);
       res.sendStatus(200);
-    });
+    })
   });
 
 module.exports = router;
