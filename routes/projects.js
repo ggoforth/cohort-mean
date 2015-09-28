@@ -21,7 +21,10 @@ router.route('/')
   .post(function (req, res) {
     var project = new Project(req.body);
     project.save(function (err) {
-      res.json(project);
+      project.populate('user', function (err, project) {
+        if (err) return res.status(400).json(err);
+        res.json(project);
+      });
     });
   });
 
@@ -35,7 +38,7 @@ router.route('/:projectId')
     });
   })
   .get(function (req, res) {
-    res.render('projects/detail', {title: 'Projects', project: req.project});
+    res.json(req.project);
   })
   .delete(function (req, res) {
     req.project.remove(function (err) {

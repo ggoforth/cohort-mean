@@ -12,7 +12,9 @@
                    data-ng-model="projectEditController.project.title"
                    class="form-control"/>
         </div>
-        <button class="btn btn-primary btn-lg btn-block">Save</button>
+        <button data-ng-disabled="projectEditForm.$invalid"
+                class="btn btn-primary btn-lg btn-block">Save
+        </button>
     </form>
 </div>
 

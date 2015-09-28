@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('app', ['ui.router'])
+  angular.module('app', ['ui.router', 'app.ui', 'ui.bootstrap'])
     .config(function ($stateProvider, $urlRouterProvider) {
       /**
        * Default Route.
@@ -22,6 +22,10 @@
             projects: function (Projects) {
               //RETURNS A PROMISE, CONTROLLER IS CALLED WHEN PROMISE IS RESOLVED
               return Projects.get();
+            },
+            users: function (Users) {
+              //RETURNS A PROMISE, CONTROLLER IS CALLED WHEN PROMISE IS RESOLVED
+              return Users.get();
             }
           }
         })

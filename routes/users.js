@@ -12,10 +12,9 @@ router.param('userId', function (req, res, next, userId) {
 });
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   User.find(function (err, users) {
-    console.log(users);
-    res.render('users', {title: 'User', users: users});
+    res.json(users);
   });
 });
 

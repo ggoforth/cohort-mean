@@ -79,5 +79,18 @@
             $state.go('projects');
           });
       };
+
+      /**
+       * Add a project.
+       *
+       * @param project
+       * @returns {*}
+       */
+      vm.post = function post(project) {
+        return $http.post('/projects/', project)
+          .then(function (res) {
+            vm.projects.push(res.data);
+          });
+      };
     });
 }());
