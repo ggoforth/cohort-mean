@@ -3,7 +3,7 @@
   'use strict';
 
   angular.module('app')
-    .controller('NewProjectCtrl', function ($modalInstance, Users) {
+    .controller('NewProjectCtrl', function ($scope, $modalInstance, Users) {
       var vm = this;
 
       /**
@@ -18,7 +18,7 @@
        *
        * @type {{}}
        */
-      vm.project = {};
+      vm.project = {user: _.first(vm.users)._id};
 
       /**
        * Closing our modal.

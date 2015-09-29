@@ -3,7 +3,7 @@
   'use strict';
 
   angular.module('app')
-    .controller('ProjectsController', function (projects, Projects, $modal, $state) {
+    .controller('ProjectsController', function (projects, Projects, $modal, $state, $rootScope) {
       var vm = this;
       vm.projects = projects;
       vm.remove = Projects.del;
@@ -11,9 +11,9 @@
       /**
        * Adding a new project.
        */
-      vm.addProject = function addProject() {
+      vm.addProject = function addProject(project) {
         var modalInstance = $modal.open({
-          templateUrl: 'javascripts/projects/new.html',
+          templateUrl: 'partials/projects/new.html',
           controller: 'NewProjectCtrl',
           controllerAs: 'newProject',
           size: 'md'

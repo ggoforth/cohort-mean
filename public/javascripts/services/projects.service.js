@@ -3,7 +3,7 @@
   'use strict';
 
   angular.module('app')
-    .service('Projects', function ($http, $state) {
+    .service('Projects', function ($http, $state, Users) {
       var vm = this;
 
       /**
@@ -33,6 +33,7 @@
           .then(function (res) {
             vm.projects.splice(0);
             res.data.forEach(function (project) {
+              project.user = Users.find(project.user);
               vm.projects.push(project);
             });
 
@@ -43,15 +44,21 @@
       /**
        * Update a project.
        *
-       * @param project
+       * @param projectCopy
        * @returns {*}
        */
-      vm.put = function put(project) {
-        var data = {title: project.title};
+      vm.put = function put(projectCopy) {
+        var data = {
+          title: projectCopy.title,
+          user: projectCopy.user._id
+        };
 
-        return $http.put('/projects/' + project._id, data)
+        return $http.put('/projects/' + projectCopy._id, data)
           .then(function (res) {
-            $state.go('projects.detail', {projectId: project._id});
+            debugger;
+            var p = vm.find(projectCopy._id);
+            _.merge(p, projectCopy);
+            $state.go('projects.detail', {projectId: projectCopy._id});
           }, function (err) {
             //TODO: handle when we can't update a project.
           });
@@ -89,6 +96,7 @@
       vm.post = function post(project) {
         return $http.post('/projects/', project)
           .then(function (res) {
+            res.data.user = Users.find(res.data.user);
             vm.projects.push(res.data);
           });
       };

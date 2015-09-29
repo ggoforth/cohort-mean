@@ -13,7 +13,7 @@
         <tbody>
         <tr data-ng-repeat="project in projects">
             <td><a data-ui-sref="projects.detail({projectId: project._id})">{{project.title}}</a></td>
-            <td>{{project.user.first_name}} {{project.user.last_name}}</td>
+            <td>{{project.user.fullName()}}</td>
             <td>{{project.user.email}}</td>
             <td>{{project.created_at | niceDate: 'MM-DD-YYYY h:mm A'}}</td>
             <td>

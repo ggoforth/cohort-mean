@@ -11,20 +11,18 @@ router.param('projectId', function (req, res, next, projectId) {
   });
 });
 
-/* GET users listing. */
+/* GET projects listing. */
 router.route('/')
   .get(function (req, res) {
-    Project.find().populate('user').exec(function (err, projects) {
+    Project.find(function (err, projects) {
       res.json(projects);
     });
   })
   .post(function (req, res) {
     var project = new Project(req.body);
     project.save(function (err) {
-      project.populate('user', function (err, project) {
-        if (err) return res.status(400).json(err);
-        res.json(project);
-      });
+      if (err) return res.status(400).json(err);
+      res.json(project);
     });
   });
 

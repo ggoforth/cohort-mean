@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('app')
+  angular.module('app.ui')
     .filter('niceDate', function () {
       return function (timeStamp, format) {
         format = format || 'MMMM Do, YYYY';

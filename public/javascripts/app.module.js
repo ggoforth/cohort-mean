@@ -15,23 +15,23 @@
       $stateProvider
         .state('projects', {
           url: '/projects',
-          templateUrl: 'javascripts/projects/index.html',
+          templateUrl: 'partials/projects/index.html',
           controller: 'ProjectsController',
           controllerAs: 'projectsController',
           resolve: {
-            projects: function (Projects) {
-              //RETURNS A PROMISE, CONTROLLER IS CALLED WHEN PROMISE IS RESOLVED
-              return Projects.get();
-            },
             users: function (Users) {
               //RETURNS A PROMISE, CONTROLLER IS CALLED WHEN PROMISE IS RESOLVED
               return Users.get();
+            },
+            projects: function (Projects, users) {
+              //RETURNS A PROMISE, CONTROLLER IS CALLED WHEN PROMISE IS RESOLVED
+              return Projects.get();
             }
           }
         })
         .state('projects.detail', {
           url: '/:projectId',
-          templateUrl: 'javascripts/projects/detail.html',
+          templateUrl: 'partials/projects/detail.html',
           controller: 'ProjectController',
           controllerAs: 'projectController',
           resolve: {
@@ -43,7 +43,7 @@
         })
         .state('projects.detail.edit', {
           url: '/edit',
-          templateUrl: 'javascripts/projects/edit.html',
+          templateUrl: 'partials/projects/edit.html',
           controller: 'ProjectEditController',
           controllerAs: 'projectEditController'
         });

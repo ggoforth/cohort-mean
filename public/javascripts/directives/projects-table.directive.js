@@ -6,11 +6,10 @@
     .directive('projectsTable', function () {
       return {
         restrict: 'EA',
-        templateUrl: 'javascripts/directives/projects-table.html',
+        templateUrl: 'partials/directives/projects-table.html',
         scope: {
           projects: '=',
-          remove: '=',
-          log: '&'
+          remove: '='
         }
       };
     });
