@@ -9,7 +9,8 @@ var gulp = require('gulp'),
   sourcemaps = require('gulp-sourcemaps'),
   concat = require('gulp-concat'),
   ngAnnotate = require('gulp-ng-annotate'),
-  watch = require('gulp-watch');
+  watch = require('gulp-watch'),
+  gulpif = require('gulp-if');
 
 gulp.task('js-deps', function () {
   gulp.src([
@@ -22,6 +23,12 @@ gulp.task('js-deps', function () {
   ])
     .pipe(concat('deps.js'))
     .pipe(gulp.dest('./build/js'));
+
+  //move maps
+  gulp.src([
+    './public/bower_components/angular/angular.min.js.map'
+  ])
+    .pipe(gulp.dest('./build/js'))
 });
 
 gulp.task('partials', function () {
@@ -44,7 +51,8 @@ gulp.task('css-deps', function () {
 gulp.task('js', function () {
   var baseDir = __dirname + '/public/javascripts',
     outputDir = __dirname + '/build/js',
-    outputFilename = 'app.js';
+    outputFilename = 'app.js',
+    env = envfile.parseFileSync('.env');
 
   gulp.src([
     baseDir + "/*module.js",
@@ -56,7 +64,7 @@ gulp.task('js', function () {
     .pipe(sourcemaps.init())
     .pipe(concat(outputFilename))
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    .pipe(gulpif(env.PRODUCTION === 'true', uglify()))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(outputDir));
 });
