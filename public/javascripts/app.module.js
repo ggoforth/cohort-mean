@@ -33,6 +33,9 @@
               //RETURNS A PROMISE, CONTROLLER IS CALLED WHEN PROMISE IS RESOLVED
               return Projects.get();
             }
+          },
+          data: {
+            requiresLogin: true
           }
         })
         .state('projects.detail', {
@@ -45,13 +48,29 @@
               //RETURNS A PROJECT OBJECT
               return Projects.find($stateParams.projectId);
             }
+          },
+          data: {
+            requiresLogin: true
           }
         })
         .state('projects.detail.edit', {
           url: '/edit',
           templateUrl: 'partials/projects/edit.html',
           controller: 'ProjectEditController',
-          controllerAs: 'projectEditController'
+          controllerAs: 'projectEditController',
+          data: {
+            requiresLogin: true
+          }
         });
+    })
+    .run(function ($rootScope, Users, $state) {
+      $rootScope.$on('$stateChangeStart', function (event, toState) {
+        if (toState.data && toState.data.requiresLogin) {
+          if (!Users.isLoggedIn()) {
+            event.preventDefault();
+            $state.go('login');
+          }
+        }
+      });
     });
 }());

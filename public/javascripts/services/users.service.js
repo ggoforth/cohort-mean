@@ -3,8 +3,22 @@
   'use strict';
 
   angular.module('app')
-    .service('Users', function ($http, User) {
+    .service('Users', function ($http, User, $state) {
       var vm = this;
+
+      /**
+       * The current user object.
+       *
+       * @type {null}
+       */
+      vm.currentUser = null;
+
+      /**
+       * The current users token.
+       *
+       * @type {null}
+       */
+      vm.currentUserToken = null;
 
       /**
        * Our user storage.
@@ -48,10 +62,18 @@
       vm.login = function login(creds) {
         return $http.post('/login', creds)
           .then(function (res) {
-            console.log(res.data);
-          }, function (err) {
-            console.error(err);
+            vm.currentUser = res.data.user;
+            vm.currentUserToken = res.data.token;
           });
+      };
+
+      /**
+       * Is the current user logged in?
+       *
+       * @returns {boolean}
+       */
+      vm.isLoggedIn = function isLoggedIn() {
+        return !!vm.currentUser;
       };
     });
 }());
