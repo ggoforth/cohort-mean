@@ -38,5 +38,20 @@
             return vm.users;
           });
       };
+
+      /**
+       * Login a user with the provided credentials.
+       *
+       * @param creds
+       * @returns {*}
+       */
+      vm.login = function login(creds) {
+        return $http.post('/login', creds)
+          .then(function (res) {
+            console.log(res.data);
+          }, function (err) {
+            console.error(err);
+          });
+      };
     });
 }());
