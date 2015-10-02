@@ -3,7 +3,7 @@
   'use strict';
 
   angular.module('app', ['ui.router', 'app.ui', 'ui.bootstrap'])
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
       /**
        * Default Route.
        */
@@ -62,6 +62,19 @@
             requiresLogin: true
           }
         });
+
+      /**
+       * Configure the http interceptors.
+       */
+      $httpProvider.interceptors.push(function ($injector) {
+        return {
+          request: function (config) {
+            var Users = $injector.get('Users');
+            if (Users.isLoggedIn()) config.headers.Authorization = 'Token ' + Users.currentUserToken;
+            return config;
+          }
+        };
+      });
     })
     .run(function ($rootScope, Users, $state) {
       $rootScope.$on('$stateChangeStart', function (event, toState) {

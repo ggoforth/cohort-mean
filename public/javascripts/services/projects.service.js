@@ -55,7 +55,6 @@
 
         return $http.put('/projects/' + projectCopy._id, data)
           .then(function (res) {
-            debugger;
             var p = vm.find(projectCopy._id);
             _.merge(p, projectCopy);
             $state.go('projects.detail', {projectId: projectCopy._id});
